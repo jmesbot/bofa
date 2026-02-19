@@ -1,9 +1,14 @@
-import importlib.metadata
+from __future__ import annotations
 
-__version__ = importlib.metadata.version("bofa")
+from importlib import metadata
 
-BOFA = b'\x42\x6f\x66\x61\x20\x64\x65\x65\x7a\x20\x6e\x75\x74\x73'
+try:
+    __version__ = metadata.version("bofa")
+except metadata.PackageNotFoundError:
+    __version__ = "0.0.0"
 
 
 def main():
-    print(BOFA.decode('utf-8'))
+    from bofa.cli import main as cli_main
+
+    cli_main()
